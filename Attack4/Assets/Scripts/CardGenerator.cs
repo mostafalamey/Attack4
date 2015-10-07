@@ -61,7 +61,7 @@ namespace Attack4.CardSystem
 			{
 				GameObject _tempCard = Instantiate(_genericPC) as GameObject;
 				_tempCard.transform.SetParent(this.transform);
-				_tempCard.GetComponent<RectTransform>().localPosition = this.GetComponent<RectTransform>().localPosition + new Vector3((i*1.5f), (i*1.5f), 0f) + new Vector3 (40, -60, 0);
+				_tempCard.transform.position = this.transform.position + new Vector3(i*1.5f, i*1.5f, 0f);
 				_tempCard.transform.localScale = Vector3.one;
 				_tempCard.GetComponent<GenericPlayCard>()._myCard = _cardsToGenerate.Get(i);
 				_tempCard.name = _tempCard.GetComponent<GenericPlayCard>()._myCard.CName;

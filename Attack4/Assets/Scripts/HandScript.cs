@@ -59,6 +59,7 @@ namespace Attack4.CardSystem
 			GetComponent<DropCard>().enabled = false;
 			for (int i = 0; i < panel.Cards.Count; i++)
 			{
+				panel.Cards[i].GetComponent<RectTransform>().localPosition = Vector3.zero;
 				panel.Cards[i].GetComponent<RectTransform>().localPosition = this.GetComponent<RectTransform>().localPosition + new Vector3(Mathf.Round(i*1.5f), Mathf.Round(i*1.5f), 0f) + new Vector3 (40, -60, 0);
 				panel.Cards[i].GetComponent<CanvasGroup>().blocksRaycasts = false;
 			}
