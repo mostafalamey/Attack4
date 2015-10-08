@@ -33,7 +33,7 @@ namespace Attack4.CardSystem
 
 			//        **********************************************************************
 
-			if (this.transform.parent.tag == "Hand")
+			if (this.transform.parent.name == "Hand")
 				GetComponent<CanvasGroup>().blocksRaycasts = false;
 			else
 				GetComponent<CanvasGroup>().blocksRaycasts = true;

@@ -17,6 +17,7 @@ namespace Attack4.CardSystem
 		[SerializeField] int _attackRight;
 		[SerializeField] int _gemSlotsCount;
 		[SerializeField] List<GemSlot> _gemSlots;
+		[SerializeField] int _hand;
 
 
 
@@ -30,12 +31,13 @@ namespace Attack4.CardSystem
 			_attackRight = _health;
 			_gemSlotsCount = 0;
 			_gemSlots = new List<GemSlot>();
+			_hand = 0;
 
 		}
 
 
 
-		public PlayCard (int h, int at, int ab, int al, int ar, int gs, int i, int f, string n, string des, int psc, int lvl)
+		public PlayCard (int h, int at, int ab, int al, int ar, int gs, int hnd, int i, int f, string n, string des, int psc, int lvl)
 		{ 
 			_health = h;
 			_attackTop = at;
@@ -43,6 +45,7 @@ namespace Attack4.CardSystem
 			_attackLeft = al;
 			_attackRight = ar;
 			_gemSlotsCount = gs;
+			_hand = hnd;
 			CID = i;
 			CFaction = AssignFaction(f);
 			CName = n;
@@ -54,7 +57,7 @@ namespace Attack4.CardSystem
 
 
 		//this is a constructor that is accepting an object of type
-		//GenericCard and make the current object a clone of this object
+		//PlayCard and make the current object a clone of this object
 		public PlayCard Copy (PlayCard PlayC)
 		{
 			PlayC.CID = this.CID;
@@ -70,6 +73,7 @@ namespace Attack4.CardSystem
 			PlayC.AttackRight = this.AttackRight;
 			PlayC.GemSlotsCount = this.GemSlotsCount;
 			PlayC._gemSlots = this._gemSlots;
+			PlayC._hand = this._hand;
 
 			return PlayC;
 		}
@@ -139,6 +143,12 @@ namespace Attack4.CardSystem
 		public GemSlot GetGemSlot (int i)
 		{
 			return _gemSlots.ElementAt(i);
+		}
+
+		public int Hand
+		{
+			get { return _hand; }
+			set { _hand = value; }
 		}
 	}
 }

@@ -9,16 +9,15 @@ namespace Attack4.CardSystem
 {
 	public class HandScript : MonoBehaviour
 	{
-		CardGenerator panel;
-
 		Transform parent;
+		GameObject _placeHolder;
+
 		public Transform expand;
 
 
 		void Awake()
 		{
 			GetComponent<DropCard>().enabled = false;
-			panel = this.GetComponent<CardGenerator>();
             parent = this.transform.parent;
 		}
 
@@ -28,7 +27,8 @@ namespace Attack4.CardSystem
             GameObject[] Hands = GameObject.FindGameObjectsWithTag("Hand");
             foreach (GameObject hand in Hands)
             {
-                hand.GetComponent<HandScript>().Contract();
+               if(hand.GetComponent<HandScript>())
+					hand.GetComponent<HandScript>().Contract();
             }
             Expand();
         }
@@ -38,15 +38,24 @@ namespace Attack4.CardSystem
 
 		void Expand()
 		{
+			_placeHolder = new GameObject("PlaceHolder");
+			_placeHolder.AddComponent<RectTransform>();
+			LayoutElement le = _placeHolder.AddComponent<LayoutElement>();
+			le.preferredWidth = this.GetComponent<LayoutElement>().preferredWidth;
+			le.preferredHeight = this.GetComponent<LayoutElement>().preferredHeight;
+			_placeHolder.AddComponent<CanvasGroup>();
+			_placeHolder.transform.SetParent (this.transform.parent.transform);
+			_placeHolder.transform.SetSiblingIndex(this.transform.GetSiblingIndex());
+
 			this.transform.SetParent(expand);
 			this.GetComponent<LayoutElement>().preferredWidth = expand.GetComponent<RectTransform>().rect.width;
 			this.GetComponent<LayoutElement>().preferredHeight = expand.GetComponent<RectTransform>().rect.height;
 			this.GetComponent<RectTransform>().localPosition = Vector3.zero;
 			GetComponent<GridLayoutGroup>().enabled = true;
 			GetComponent<DropCard>().enabled = true;
-			for (int i = 0; i < panel.Cards.Count; i++)
+			for (int i = 0; i < this.transform.childCount; i++)
 			{
-				panel.Cards[i].GetComponent<CanvasGroup>().blocksRaycasts = true;
+				this.transform.GetChild(i).GetComponent<CanvasGroup>().blocksRaycasts = true;
 			}
 		}
 
@@ -55,13 +64,16 @@ namespace Attack4.CardSystem
 		{
 			GetComponent<GridLayoutGroup>().enabled = false;
 			this.transform.SetParent(parent);
+			if (_placeHolder)
+				this.transform.SetSiblingIndex(_placeHolder.transform.GetSiblingIndex());
+			Destroy(_placeHolder);
 			this.GetComponent<RectTransform>().localPosition = Vector3.zero;
 			GetComponent<DropCard>().enabled = false;
-			for (int i = 0; i < panel.Cards.Count; i++)
+			for (int i = 0; i < this.transform.childCount; i++)
 			{
-				panel.Cards[i].GetComponent<RectTransform>().localPosition = Vector3.zero;
-				panel.Cards[i].GetComponent<RectTransform>().localPosition = this.GetComponent<RectTransform>().localPosition + new Vector3(Mathf.Round(i*1.5f), Mathf.Round(i*1.5f), 0f) + new Vector3 (40, -60, 0);
-				panel.Cards[i].GetComponent<CanvasGroup>().blocksRaycasts = false;
+				this.transform.GetChild(i).GetComponent<RectTransform>().localPosition = Vector3.zero;
+				this.transform.GetChild(i).transform.position = this.transform.position + new Vector3((i*2f), (i*2f), 0f) + new Vector3 (40, -60, 0);
+				this.transform.GetChild(i).GetComponent<CanvasGroup>().blocksRaycasts = false;
 			}
 		}
 

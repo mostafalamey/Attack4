@@ -17,6 +17,7 @@ namespace Attack4.CardSystem
 			_originalParent = this.transform.parent;
 			parentToReturnTo = this.transform.parent;
 			this.transform.SetParent (GameObject.Find("Canvas").transform);
+
 			_placeHolder = new GameObject("PlaceHolder");
 			_placeHolder.AddComponent<RectTransform>();
 			LayoutElement le = _placeHolder.AddComponent<LayoutElement>();
@@ -24,7 +25,7 @@ namespace Attack4.CardSystem
 			le.preferredHeight = this.GetComponent<LayoutElement>().preferredHeight;
 			_placeHolder.transform.SetParent (parentToReturnTo);
 			_placeHolder.transform.SetSiblingIndex(this.transform.GetSiblingIndex());
-			_originalParent.GetComponent<CardGenerator>().UpdateCardList();
+
 			GetComponent<CanvasGroup> ().blocksRaycasts = false;
 		}
 
@@ -57,7 +58,6 @@ namespace Attack4.CardSystem
 			this.transform.SetParent(parentToReturnTo);
 			if (parentToReturnTo == _originalParent)
 				this.transform.SetSiblingIndex(_placeHolder.transform.GetSiblingIndex());
-			parentToReturnTo.GetComponent<CardGenerator>().UpdateCardList();
 			GetComponent<CanvasGroup>().blocksRaycasts = true;
 			Destroy(_placeHolder);
 		}
