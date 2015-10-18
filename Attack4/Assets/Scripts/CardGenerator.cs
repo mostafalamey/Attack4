@@ -27,7 +27,7 @@ namespace Attack4.CardSystem
 			if(!File.Exists(Application.dataPath + "/Resources/MyCards/CardsInventory.json"))
 				return;
 
-			_jsonString = File.ReadAllText(Application.dataPath + "/Resources/MyCards/CardsInventory.json").ToString();
+//			_jsonString = File.ReadAllText(Application.dataPath + "/Resources/MyCards/CardsInventory.json").ToString();
 
 			_myCardsJson = JsonMapper.ToObject(_jsonString);
 			
@@ -60,7 +60,7 @@ namespace Attack4.CardSystem
 					_myCardsJson += ",";
 			}
 			_myCardsJson += "]";
-			File.WriteAllText(Application.dataPath + "/Resources/MyCards/CardsInventory.json", _myCardsJson.ToString());
+//			File.WriteAllText(Application.dataPath + "/Resources/MyCards/CardsInventory.json", _myCardsJson.ToString());
 		}
 
 	}

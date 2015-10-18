@@ -122,6 +122,10 @@ public class FBHolder : MonoBehaviour
 	}
 
 
+	public void ShareWithFriends()
+	{
+		FB.ShareLink( new System.Uri ("http://apps.facebook.com/" + FB.AppId));
+ 	}
 
 	
 }
